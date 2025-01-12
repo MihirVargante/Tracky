@@ -19,15 +19,18 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="flex items-center justify-center w-[500px] bg-gray-50">
-      <div className="bg-white p-16 rounded-lg shadow-lg w-full">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-800 text-center">
-          Welcome Back
-        </h2>
+      <div className="bg-white rounded-lg shadow-lg w-full">
+      <div className="relative bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 h-24 flex items-center justify-center">
+          <h2 className="text-2xl font-semibold text-white text-center">
+            Welcome Back
+          </h2>
+        </div>
+        <div className="p-8">
         <p className="text-sm text-gray-600 mb-6 text-center">
           Sign in to access your account
         </p>
         <form onSubmit={handleSubmit}>
-        <div className="mb-6 relative">
+        <div className="mb-6 relative ">
             <input
               id="email"
               type="email"
@@ -85,14 +88,29 @@ const Login = ({ onLogin }) => {
           </div>
           <button
             type="submit"
-            className="w-full py-3 px-4 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150"
+            className="w-full py-3 px-4 text-sm bg-teal-600 text-white rounded-md hover:bg-teal-700 transition duration-150"
           >
             Login
           </button>
         </form>
+
+        {/* Navigation to Sign Up */}
+        <p className="text-sm text-gray-500 mt-4 text-center">
+          Don't have an account?{" "}
+          <button
+            onClick={() => navigate("/signup")}
+            className="text-indigo-600 hover:underline"
+          >
+            Sign Up
+          </button>
+        </p>
         <p className="text-xs text-gray-500 mt-4 text-center">
           By logging in, you agree to our Terms and Privacy Policy.
         </p>
+
+        </div>
+
+        
       </div>
     </div>
   );

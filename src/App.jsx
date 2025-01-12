@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Home from './components/Home'
 import Login from './components/Login'
+import SignUp from './components/Signup'
 import Navbar from './components/Navbar'
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 const App = () => {
@@ -33,6 +34,13 @@ const App = () => {
           }
         />
 
+          {/* SignUp Page */}
+        <Route
+          path="/signup"
+          element={
+            isLoggedIn ? <Navigate to="/" /> : <SignUp onSignUp={handleLogin} />
+          }
+        />
         {/* Home Page (Protected) */}
         <Route
           path="/"
