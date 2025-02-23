@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Home from './components/Home'
+import { useSelector, useDispatch } from "react-redux";
 import Login from './components/Login'
 import SignUp from './components/Signup'
 import Navbar from './components/Navbar'
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.auth.currentUser);
 
   // Login handler
   const handleLogin = () => {
@@ -19,18 +22,19 @@ const App = () => {
 
   // Protected Route component
   const ProtectedRoute = ({ children }) => {
-    return isLoggedIn ? children : <Navigate to="/login" />;
+    return currentUser ? children : <Navigate to="/login" />;
   };
+
   return (
     <>
       {/* Render Navbar only when the user is logged in */}
-      {isLoggedIn && <Navbar onLogout={handleLogout} />}
+      {currentUser && <Navbar onLogout={handleLogout} />}
       <Routes>
         {/* Login Page */}
         <Route
           path="/login"
           element={
-            isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />
+            currentUser ? <Navigate to="/" /> : <Login/>
           }
         />
 
@@ -38,7 +42,7 @@ const App = () => {
         <Route
           path="/signup"
           element={
-            isLoggedIn ? <Navigate to="/" /> : <SignUp onSignUp={handleLogin} />
+            currentUser ? <Navigate to="/" /> : <SignUp />
           }
         />
         {/* Home Page (Protected) */}

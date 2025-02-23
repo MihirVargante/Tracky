@@ -1,28 +1,35 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { register } from "../redux/authSlice"; // Import register action
+import { toast } from "react-toastify";
 const SignUp = ({ onSignUp }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
-    // Dummy logic for sign-up
     if (name && email && password) {
-      onSignUp();
-      alert("Account created successfully!");
-      navigate("/login"); // Navigate to Login after successful sign-up
+      dispatch(register({ name, email, password }))
+        .then(() => {
+          toast.success("Account created successfully!");
+          navigate("/login"); // Redirect to login after successful sign-up
+        })
+        .catch((error) => {
+          toast.error("Registration failed: " + error.message);
+        });
     } else {
-      alert("Please fill all the fields correctly.");
+      toast.error("Please fill all the fields correctly.");
     }
   };
 

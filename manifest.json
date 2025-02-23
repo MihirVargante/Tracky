@@ -21,7 +21,13 @@
       "service_worker": "src/background.js"
     },
     "content_scripts": [
-
+      {
+        "matches": [
+          "https://www.amazon.in/*",
+          "https://www.flipkart.com/*"
+        ],
+        "js": ["src/content.js"]
+      }
     ]
   }
   

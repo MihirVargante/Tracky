@@ -1,19 +1,29 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux"; // ✅ Import Redux hooks
 import { useNavigate } from "react-router-dom";
+import { signin } from "../redux/authSlice"; // 
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const { error, isLoading } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (email === "user@example.com" && password === "password") {
-      onLogin();
-      navigate("/"); // Navigate to Home after login
-    } else {
-      alert("Invalid email or password");
+    if (!email || !password) {
+      alert("Please fill in all fields!");
+      return;
+    }
+
+    const userData = { email, password };
+    try {
+      await dispatch(signin(userData)); // ✅ Dispatch signin action
+      alert("Login successful!");
+      navigate("/"); // ✅ Redirect to home after login
+    } catch (err) {
+      alert("Login failed. Check your credentials.");
     }
   };
 

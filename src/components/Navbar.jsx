@@ -1,23 +1,44 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FiSettings, FiHome, FiInfo } from "react-icons/fi";
 
-const Navbar = ({ onLogout }) => {
+const Navbar = () => {
   return (
-    <nav className="bg-indigo-600 text-white p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div>
-          <Link to="/" className="text-lg font-semibold hover:text-gray-200">
-            Home
-          </Link>
+    <div className="bg-white shadow-lg rounded-lg" style={{ width: "500px" }}>
+      {/* Header */}
+      <header className="bg-indigo-600 text-white p-4 rounded-t-lg">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <h1 className="text-lg font-semibold flex items-center">
+              <FiHome className="h-6 w-6 mr-2" />
+              Tracky
+            </h1>
+          </div>
+          {/* Settings Icon */}
+          <button>
+            <FiSettings className="h-6 w-6 text-white" />
+          </button>
         </div>
-        <button
-          onClick={onLogout}
-          className="px-4 py-2 bg-red-500 rounded hover:bg-red-600"
+      </header>
+
+      {/* Tab Navigation */}
+      <nav className="flex justify-evenly border-b-2 border-gray-200">
+        <Link
+          to="/"
+          className="px-4 h-12 flex items-center gap-2 text-indigo-600 font-medium hover:bg-indigo-50"
         >
-          Logout
-        </button>
-      </div>
-    </nav>
+          <FiHome className="h-5 w-5" />
+          Home
+        </Link>
+        <Link
+          to="/about"
+          className="px-4 h-12 flex items-center gap-2 text-indigo-600 font-medium hover:bg-indigo-50"
+        >
+          <FiInfo className="h-5 w-5" />
+          About
+        </Link>
+      </nav>
+    </div>
   );
 };
 
